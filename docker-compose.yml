@@ -1,19 +1,41 @@
+version: "3"
+
 services:
-  db:
-    image: postgres:latest
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
+  redis-http:
+    ports:
+      - "8079:80"
+    image: hiett/serverless-redis-http:latest
     environment:
-      POSTGRES_USER: vodamark
-      POSTGRES_PASSWORD: vodamark_password
-      POSTGRES_DB: vodamark_db
+      SRH_MODE: env
+      SRH_TOKEN: api_token
+      SRH_CONNECTION_STRING: "redis://redis:6379"
+
+  postgres:
+    image: "ankane/pgvector"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
 
-  redis:
-    image: redis:latest
+  postgres-http:
+    image: ghcr.io/neondatabase/wsproxy:latest
+    environment:
+      APPEND_PORT: "postgres:5432"
+      ALLOW_ADDR_REGEX: ".*"
+      LOG_TRAFFIC: "true"
     ports:
-      - "6379:6379"
+      - "5433:80"
+    depends_on:
+      - postgres
 
 volumes:
   postgres_data:

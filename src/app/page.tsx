@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs'
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -26,7 +27,14 @@ export default function Home() {
               Contact
             </Link>
           </nav>
-          <Button>Get Started</Button>
+          <SignedOut>
+            <SignInButton mode="modal">
+              <Button>Get Started</Button>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <Button>Dashboard</Button>
+          </SignedIn>
         </div>
       </header>
       <main className="flex-1">
@@ -40,7 +48,14 @@ export default function Home() {
                 VodaMark is an AI-powered watermarking service that helps you protect your digital content with a single
                 click.
               </p>
-              <Button>Try for Free</Button>
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <Button>Try for Free</Button>
+                </SignInButton>
+              </SignedOut>
+              <SignedIn>
+                <Button>Dashboard</Button>
+              </SignedIn>
             </div>
             <Image
               src="/placeholder.svg"
@@ -145,79 +160,81 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="py-12 md:py-24">
-          <div className="container mx-auto px-4 md:px-6">
-            <div className="space-y-4 text-center">
-              <h2 className="text-3xl font-bold md:text-4xl">VodaMark Pricing</h2>
-              <p className="text-muted-foreground md:text-lg">
-                Protect your digital content with our affordable plans.
-              </p>
+        <SignedOut>
+          <section className="py-12 md:py-24">
+            <div className="container mx-auto px-4 md:px-6">
+              <div className="space-y-4 text-center">
+                <h2 className="text-3xl font-bold md:text-4xl">VodaMark Pricing</h2>
+                <p className="text-muted-foreground md:text-lg">
+                  Protect your digital content with our affordable plans.
+                </p>
+              </div>
+              <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <Card className="flex flex-col space-y-4 rounded-lg bg-muted p-6 shadow-sm">
+                  <div className="flex items-center gap-4">
+                    <div className="rounded-md bg-primary p-3 text-primary-foreground">
+                      <ImageIcon className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-xl font-semibold">Anon Tier</h3>
+                  </div>
+                  <p className="text-muted-foreground">Protect your images with basic watermarking.</p>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span>Anon Tier</span>
+                      <span>$0/month</span>
+                    </div>
+                    <ul className="list-disc space-y-1 pl-4 text-muted-foreground">
+                      <li>Up to 50 images/month</li>
+                      <li>Basic watermark customization</li>
+                    </ul>
+                  </div>
+                  <Button>Get Started</Button>
+                </Card>
+                <Card className="flex flex-col space-y-4 rounded-lg bg-muted p-6 shadow-sm">
+                  <div className="flex items-center gap-4">
+                    <div className="rounded-md bg-primary p-3 text-primary-foreground">
+                      <ImageIcon className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-xl font-semibold">Free Tier</h3>
+                  </div>
+                  <p className="text-muted-foreground">Protect your images with AI-generated watermarks.</p>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span>Free Tier</span>
+                      <span>$0/month</span>
+                    </div>
+                    <ul className="list-disc space-y-1 pl-4 text-muted-foreground">
+                      <li>Up to 50 images/month</li>
+                      <li>Basic watermark customization</li>
+                    </ul>
+                  </div>
+                  <Button>Get Started</Button>
+                </Card>
+                <Card className="flex flex-col space-y-4 rounded-lg bg-muted p-6 shadow-sm">
+                  <div className="flex items-center gap-4">
+                    <div className="rounded-md bg-primary p-3 text-primary-foreground">
+                      <ImageIcon className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-xl font-semibold">Premium Tier</h3>
+                  </div>
+                  <p className="text-muted-foreground">Protect your images with advanced watermarking.</p>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span>Premium Tier</span>
+                      <span>$9.99/month</span>
+                    </div>
+                    <ul className="list-disc space-y-1 pl-4 text-muted-foreground">
+                      <li>Up to 500 images/month</li>
+                      <li>Advanced watermark customization</li>
+                      <li>Priority support</li>
+                    </ul>
+                  </div>
+                  <Button>Get Started</Button>
+                </Card>
+              </div>
             </div>
-            <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-              <Card className="flex flex-col space-y-4 rounded-lg bg-muted p-6 shadow-sm">
-                <div className="flex items-center gap-4">
-                  <div className="rounded-md bg-primary p-3 text-primary-foreground">
-                    <ImageIcon className="h-6 w-6" />
-                  </div>
-                  <h3 className="text-xl font-semibold">Anon Tier</h3>
-                </div>
-                <p className="text-muted-foreground">Protect your images with basic watermarking.</p>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span>Anon Tier</span>
-                    <span>$0/month</span>
-                  </div>
-                  <ul className="list-disc space-y-1 pl-4 text-muted-foreground">
-                    <li>Up to 50 images/month</li>
-                    <li>Basic watermark customization</li>
-                  </ul>
-                </div>
-                <Button>Get Started</Button>
-              </Card>
-              <Card className="flex flex-col space-y-4 rounded-lg bg-muted p-6 shadow-sm">
-                <div className="flex items-center gap-4">
-                  <div className="rounded-md bg-primary p-3 text-primary-foreground">
-                    <ImageIcon className="h-6 w-6" />
-                  </div>
-                  <h3 className="text-xl font-semibold">Free Tier</h3>
-                </div>
-                <p className="text-muted-foreground">Protect your images with AI-generated watermarks.</p>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span>Free Tier</span>
-                    <span>$0/month</span>
-                  </div>
-                  <ul className="list-disc space-y-1 pl-4 text-muted-foreground">
-                    <li>Up to 50 images/month</li>
-                    <li>Basic watermark customization</li>
-                  </ul>
-                </div>
-                <Button>Get Started</Button>
-              </Card>
-              <Card className="flex flex-col space-y-4 rounded-lg bg-muted p-6 shadow-sm">
-                <div className="flex items-center gap-4">
-                  <div className="rounded-md bg-primary p-3 text-primary-foreground">
-                    <ImageIcon className="h-6 w-6" />
-                  </div>
-                  <h3 className="text-xl font-semibold">Premium Tier</h3>
-                </div>
-                <p className="text-muted-foreground">Protect your images with advanced watermarking.</p>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span>Premium Tier</span>
-                    <span>$9.99/month</span>
-                  </div>
-                  <ul className="list-disc space-y-1 pl-4 text-muted-foreground">
-                    <li>Up to 500 images/month</li>
-                    <li>Advanced watermark customization</li>
-                    <li>Priority support</li>
-                  </ul>
-                </div>
-                <Button>Get Started</Button>
-              </Card>
-            </div>
-          </div>
-        </section>
+          </section>
+        </SignedOut>
       </main>
       <footer className="bg-muted py-6 text-muted-foreground">
         <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-4 md:flex-row md:px-6">
