@@ -1,6 +1,6 @@
 # VodaMark: Интеллектуальная служба водяных знаков
 
-   // ... (keep the existing content)
+more soon, does not work yet ffs
 
 ## Getting Started
 
